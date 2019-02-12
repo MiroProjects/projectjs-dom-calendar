@@ -24,7 +24,7 @@ JSDomL = {
         return element;
     },
 
-    //Function for getting elements without chaching it and with using css selectors
+    //Function for getting elements without chaching them and with using css selectors
     getElementsUsingCssSelectors: function(selector){
         var elements = document.querySelectorAll(selector);
         return elements;
@@ -55,6 +55,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for adding an attribute
     addAttribute: function(element, attribute, value){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -65,6 +66,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for appending text to an existing HTML element
     appendText: function(element, text){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -76,6 +78,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for changing the entire text content of an HTML element
     changeTextContent: function(element, text){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -86,6 +89,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for changing the HTML content of an HTML element
     changeHTMLContent: function(element, htmlContent){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -96,6 +100,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for changing some style properties of an HTML element
     changeStyle: function(element, styleProperty, styleValue){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -106,6 +111,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for getting the parent of an HTML element
     getParent: function(element){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -115,6 +121,7 @@ JSDomL = {
         return element.parentNode;
     },
 
+    //Function for getting the previous sybling of an HTML element
     getPreviousSibling: function(element){
         element = checkSelector(element); 
         if (checkForNullElement(element)) {
@@ -124,6 +131,7 @@ JSDomL = {
         return element.previousElementSibling;
     },
 
+    //Function for getting the next sybling of an HTML element
     getNextSibling: function(element){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -133,6 +141,7 @@ JSDomL = {
         return element.nextElementSibling;
     },
     
+    //Function for getting all the childs of an HTML element
     getChilds: function(element){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -142,6 +151,7 @@ JSDomL = {
         return element.childNodes;
     },
 
+    //Function for adding an event listener to an HTML element
     addAction: function(element, event, callback){
         element = checkSelector(element);
         if (checkForNullElement(element)) {
@@ -195,30 +205,3 @@ checkForNullElement = function(element){
 
     return false;
 };
-
-//Tests
-
-var element = JSDomL.getElementUsingId("id2");
-//JSDomL.appendElement("INPUT", element);
-//JSDomL.deleteElement(element);
-//JSDomL.addAttribute(element, "id", "10");
-
-// JSDomL.changeHTMLContent(element, "<input type='button' value='Hi'>");
-// JSDomL.addText(element, "Hello");
-// JSDomL.changeStyle(element, "color", "blue");
-// JSDomL.addAction(element, "click", function(){alert("Hello");});
-
-JSDomL.changeHTMLContent(element, "<input type='button' value='Hi'>")
-        .appendText(element, "Hello")
-        .changeStyle(element, "color", "blue")
-        .addAction(element, "click", function(){alert("Hello");});
-
-var element_2 = JSDomL.getElementUsingId("id3");
-JSDomL.appendElement("input", element_2);
-
-JSDomL.addAttribute("id3", "class", "blue")
-    .changeTextContent(element_2, "H")
-    .changeHTMLContent(element_2, "<input type='button' value='Hi'>")
-    .appendText("id3", "Hi")
-    .changeStyle(element_2, "color", "red")
-    .addAction("id3", "click", function(){alert("Hi");});

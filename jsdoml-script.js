@@ -38,9 +38,14 @@ JSDomL = {
 
     //Function for creating a new element and appending it to an existing one
     appendElement: function(elementToCreate, exsistingElementToAppendTo){
+        exsistingElementToAppendTo = checkSelector(exsistingElementToAppendTo);
+        if (checkForNullElement(exsistingElementToAppendTo)) {
+            return;
+        }
+
         var element = this.createElement(elementToCreate);
         exsistingElementToAppendTo.appendChild(element);
-        return this;
+        return element;
     },
 
     //Function for deleting an element
@@ -205,3 +210,18 @@ checkForNullElement = function(element){
 
     return false;
 };
+
+var d = new Date();
+//What is the current date (1-31)
+console.log(d.getDate());
+//Which day from the week (from 0 to 6) Sunday = 0, Monday = 1....Saturday=6
+console.log(d.getDay());
+//Add 1900 for the current year
+console.log(d.getYear()+1900);
+//Or
+console.log(d.getFullYear());
+//Gets the month: returns a number from 0 to 11: January = 0, Febuary = 1...December = 11
+console.log(d.getMonth());
+
+//Creates a date object based on the given date and then it converts it to a string date object
+console.log(new Date("").toDateString());

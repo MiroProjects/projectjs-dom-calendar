@@ -335,6 +335,16 @@ var createDatePicker = function (year, month) {
     var table = JSDomL.appendElement("TABLE", element);
     showDaysOfWeek(table);
     printDaysInMonth(year, month, table, 6);
+
+    var btnForClosing = JSDomL.appendElement("INPUT", element);
+    JSDomL.addAttribute(btnForClosing, "type", "button")
+          .addAttribute(btnForClosing, "value", "X")
+          .addAction(btnForClosing, "click", function(){
+            var previousDatepicker = JSDomL.getElementUsingId("main-div");
+            if (previousDatepicker != null) {
+                JSDomL.deleteElement(previousDatepicker);
+            }
+          });
 };
 
 //Function for adding an event to the calendar by parsing the table and JSON data
@@ -356,6 +366,10 @@ var addEventToADay = function(day, month, year, JsonData, table){
             }        
         }   
     }
+};
+
+var addEventListenersToTheInput = function () {
+    JSDomL.addAction(elementToAppendToID, "focus", function () { createDatePicker(currentYear, currentMonth) });
 };
 
 //Simplified function for the user to call by parsing the date and the data
@@ -392,7 +406,7 @@ addEvent(08, 2, 2019, '{"eventName":"Cinema", "eventInfo":"Cinema event! Great m
 //change based on the given information
 //Ex: window.onload = createCalendar(1967, 5);
 if (isInputType) {
-    window.onload = createDatePicker(currentYear, currentMonth);
+    window.onload = addEventListenersToTheInput();
 }
 else{
     window.onload = createCalendar(currentYear, currentMonth);

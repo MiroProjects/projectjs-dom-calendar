@@ -8,8 +8,23 @@ var dateObject = new Date();
 var currentMonth = dateObject.getMonth();
 var currentYear = dateObject.getFullYear();
 
+//Variable for checking if it is attached to an input
+var isInputType = false;
+
 //Constant variable for holding the element to which the callendar is atteched
-const elementToAppendToID = "js-calendar";
+const elementToAppendToID = addElementToAppendTo("input-test");
+
+//Function for changing the appended element
+//It is declared this way so it can be invoked before its declaration on the previous line  
+function addElementToAppendTo(id){
+    var element = JSDomL.getElementUsingId(id);
+    var isInputTypeText = element instanceof HTMLInputElement && element.type == 'text';
+    if (isInputTypeText) {
+        isInputType = true;
+    }
+    
+    return element;
+};
 
 //Global array for holding all created events
 var eventsCollection = [];
@@ -195,6 +210,11 @@ var previousMonth = function(){
         currentMonth--;
     }
 
+    if (isInputType) {
+        createDatePicker(currentYear, currentMonth);
+        return;
+    }
+
     createCalendar(currentYear, currentMonth);
 };
 
@@ -207,6 +227,12 @@ var nextMonth = function(){
     else{
         currentMonth++;
     }
+
+    if (isInputType) {
+        createDatePicker(currentYear, currentMonth);
+        return;
+    }
+
     createCalendar(currentYear, currentMonth);
 };
 
@@ -214,6 +240,12 @@ var nextMonth = function(){
 var returnToTodaysDate = function(){
     currentMonth = dateObject.getMonth();
     currentYear = dateObject.getFullYear();
+
+    if (isInputType) {
+        createDatePicker(currentYear, currentMonth);
+        return;
+    }
+
     createCalendar(currentYear, currentMonth);
 };
 
@@ -246,7 +278,12 @@ var addFunctionality = function(year, month, element){
           .addAttribute(showYear, "title", "Choose a year")
           .addAction(showYear, "change", function(){
               currentYear = showYear.value;
-              createCalendar(currentYear, 0);
+              if (isInputType) {
+                  createDatePicker(currentYear, 0);
+              }
+              else{
+                createCalendar(currentYear, 0);
+              }
           });
 
     for (let index = 1900; index < 2120; index++) {
@@ -256,6 +293,32 @@ var addFunctionality = function(year, month, element){
         }
         JSDomL.changeHTMLContent(option, index);
     }
+};
+
+var createDatePicker = function (year, month) {
+    //It will append to the body
+    var elementToAppendTo = JSDomL.getElementUsingCssSelectors("body");
+
+    //Delete previos datepicker from body
+    var previousDatepicker = JSDomL.getElementUsingId("main-div");
+    if (previousDatepicker != null) {
+        JSDomL.deleteElement(previousDatepicker);
+    }
+    
+    //Set the current year and month to be the parameters values
+    currentYear = year;
+    currentMonth = month;
+
+    //Create div element for holding the title(displaying the arrows, date and the select field) and the table with the dates
+    var element = JSDomL.appendElement("DIV", elementToAppendTo);
+    addFunctionality(year, month, element);
+    JSDomL.addAttribute(element, "id", "main-div")
+          .addAttribute(element, "class", "container-div datepicker");
+
+    //Creating the datepicker
+    var table = JSDomL.appendElement("TABLE", element);
+    showDaysOfWeek(table);
+    printDaysInMonth(year, month, table, 6);
 };
 
 //Function for adding an event to the calendar by parsing the table and JSON data
@@ -312,4 +375,9 @@ addEvent(08, 2, 2019, '{"eventName":"Cinema", "eventInfo":"Cinema event! Great m
 //For test to show good parametrization change the current year and month to whatever you like: everything will
 //change based on the given information
 //Ex: window.onload = createCalendar(1967, 5);
-window.onload = createCalendar(currentYear, currentMonth);
+if (isInputType) {
+    window.onload = createDatePicker(currentYear, currentMonth);
+}
+else{
+    window.onload = createCalendar(currentYear, currentMonth);
+}

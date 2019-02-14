@@ -13,7 +13,7 @@ var isInputType = false;
 
 //Constant variable for holding the element to which the callendar is atteched
 //Change the parameter to "input-test" and uncomment the input in the HTML to show the datepicker functionality
-const elementToAppendToID = addElementToAppendTo("input-test");
+const elementToAppendToID = addElementToAppendTo("js-calendar");
 
 //Function for changing the appended element
 //It is declared this way so it can be invoked before its declaration on the previous line  

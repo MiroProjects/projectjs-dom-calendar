@@ -178,10 +178,8 @@ var printDaysInMonth = function(year, month, table, numberOfWeeks){
             }
 
             for (let j = numberOfFirstDay; j < 7; j++) {
-                var tableColumn = JSDomL.appendElement("td", tableRow);
-                JSDomL.changeHTMLContent(tableColumn, counter++)
-                      .addAttribute(tableColumn, "class", "table-days-rows")
-                      .addAction(tableColumn, "click", addDefaultEvent);
+                creatingCellsForEachDay(tableRow, counter, table, year, month);
+                counter++;
             }
             continue;
         }
@@ -192,11 +190,29 @@ var printDaysInMonth = function(year, month, table, numberOfWeeks){
             if (counter > lastDay) {
                 break;
             }
-            var tableColumn = JSDomL.appendElement("td", tableRow);
-            JSDomL.changeHTMLContent(tableColumn, counter++)
-                  .addAttribute(tableColumn, "class", "table-days-rows")
-                  .addAction(tableColumn, "click", addDefaultEvent);;
+            creatingCellsForEachDay(tableRow, counter, table, year, month);
+            counter++;
         }
+    }
+};
+
+//Function used to create a cell for each day
+var creatingCellsForEachDay = function(tableRow, counter, table, year, month){
+    var tableColumn = JSDomL.appendElement("td", tableRow);
+    JSDomL.changeHTMLContent(tableColumn, counter)
+        .addAttribute(tableColumn, "class", "table-days-rows");
+
+    //If it is a calendar add events
+    if (!isInputType) {
+        JSDomL.addAction(tableColumn, "click", addDefaultEvent);
+    }
+    //If it is a datepicker add get value for the input fiel
+    else{
+        JSDomL.addAction(tableColumn, "click", function(){
+            var value = table.rows[this.parentElement.rowIndex].cells[this.cellIndex].innerHTML;
+            var date = new Date(year, month, value).toDateString();
+            JSDomL.changeValue(elementToAppendToID, date);
+        });
     }
 };
 

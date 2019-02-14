@@ -105,6 +105,17 @@ JSDomL = {
         return this;
     },
 
+    //Function for changing the value of an HTML element
+    changeValue: function (element, value) {
+        element = checkSelector(element);
+        if (checkForNullElement(element)) {
+            return;
+        }
+
+        element.value = value;
+        return this;
+    },
+
     //Function for changing some style properties of an HTML element
     changeStyle: function(element, styleProperty, styleValue){
         element = checkSelector(element);
@@ -177,6 +188,7 @@ JSDomL = {
         return this;
     },
 
+    //Function for removing an event listener from an HTML element
     removeAction: function(element, event, callback){
         element = checkSelector(element);
         if (checkForNullElement(element)) {

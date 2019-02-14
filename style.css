@@ -26,8 +26,9 @@ body{
     font-size: 20px;
 }
 
-.left-btn, .right-btn, .show-date, label{
+.left-btn, .right-btn, .show-date, label, option{
     display: inline-block;
+    vertical-align: middle;
 }
 
 .label{
@@ -38,28 +39,40 @@ body{
 
 .show-date{
     font-size: 35px;
-    padding: 0 25% 0 27%;
+    padding: 0 25% 0 25%;
+    width: 270px;
 }
 
 .show-year{
-    width: 120px;
+    width: 12%;
     border: none;
     height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .left-btn, .right-btn{
-    font-size: 25px;
+    font-size: 45px;
     padding: 10px;
 }
 
-.left-btn, .right-btn:hover{
+.left-btn:hover, .right-btn:hover{
     cursor: pointer;
+    color: #398AD7;
 }
 
 .right-btn{
     margin-left: 2%;
 }
 
+.right-btn::before{
+    content: "\203A";
+}
+
 .left-btn{
     margin-right: 2%;
+}
+
+.left-btn::before{
+    content: "\2039";
 }

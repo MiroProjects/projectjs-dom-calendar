@@ -30,6 +30,71 @@ var getNumberOfLastDayOfMonth = function(year, month){
 
 //Main parameterized function for displaying the calendar
 var createCalendar = function(year, month){
+    var element = mainCalendarFunctions(year, month);
+
+    //Creating for the calendar
+    var table = JSDomL.appendElement("TABLE", element);
+    showDaysOfWeek(table);
+    printDaysInMonth(year, month, table, 6);
+    currentDayOfMonth(table);
+    showAllEvents(table);
+    createButtons(element);
+}
+
+//Function for creating the buttons
+var createButtons = function(element){
+    //For creating the buttons
+    var btnForMonthView = JSDomL.appendElement("INPUT", element);
+    var btnForFirstWeekView  = JSDomL.appendElement("INPUT", element);
+    var btnForSecondtWeekView  = JSDomL.appendElement("INPUT", element);
+    var btnForThirdWeekView  = JSDomL.appendElement("INPUT", element);
+
+    JSDomL.addAttribute(btnForMonthView, "class", "btn-month-view")
+          .addAttribute(btnForFirstWeekView, "class", "btn-first-week-view")
+          .addAttribute(btnForSecondtWeekView, "class", "btn-second-week-view")
+          .addAttribute(btnForThirdWeekView, "class", "btn-third-week-view")
+          .addAttribute(btnForMonthView, "type", "button")
+          .addAttribute(btnForFirstWeekView, "type", "button")
+          .addAttribute(btnForSecondtWeekView, "type", "button")
+          .addAttribute(btnForThirdWeekView, "type", "button")
+          .addAttribute(btnForMonthView, "value", "Month view")
+          .addAttribute(btnForFirstWeekView, "value", "First week")
+          .addAttribute(btnForSecondtWeekView, "value", "First and second week")
+          .addAttribute(btnForThirdWeekView, "value", "First second and third week")
+          .addAction(btnForMonthView, "click", showMonthView)
+          .addAction(btnForFirstWeekView, "click", function(){showWeekView(1)})
+          .addAction(btnForSecondtWeekView, "click", function(){showWeekView(2)})
+          .addAction(btnForThirdWeekView, "click", function(){showWeekView(3)});
+};
+
+//Function for showing the month view
+var showMonthView = function(){
+    createCalendar(currentYear, currentMonth);
+};
+
+//Function for showing the week view
+var showWeekView = function (numberOfWeeks) {
+    var element = mainCalendarFunctions(currentYear, currentMonth);
+
+    //Creating for the week view
+    var table = JSDomL.appendElement("TABLE", element);
+    showDaysOfWeek(table);
+    printDaysInMonth(currentYear, currentMonth, table, numberOfWeeks);
+    showAllEvents(table);
+    createButtons(element);
+};
+
+//Function for showing all events
+var showAllEvents = function (table) {
+    //For showing all the events for the current month
+    for (let index = 0; index < eventsCollection.length; index++) {
+        var event = eventsCollection[index].split("|");
+        addEventToADay(event[0], event[1], event[2], event[3], table);
+    }
+};
+
+//Function for the generating the main parts of the calendar
+var mainCalendarFunctions = function (year, month) {
     //Firstly delete the previous calender 
     var child = JSDomL.getChilds(elementToAppendToID)[0];
     JSDomL.deleteElement(child);
@@ -42,20 +107,10 @@ var createCalendar = function(year, month){
     var element = JSDomL.appendElement("DIV", elementToAppendToID);
     addFunctionality(year, month, element);
     JSDomL.addAttribute(element, "id", "main-div")
-          .addAttribute(element, "class", "container-div");
+        .addAttribute(element, "class", "container-div");
 
-    //Creating for the calendar
-    var table = JSDomL.appendElement("TABLE", element);
-    showDaysOfWeek(table);
-    printDaysInMonth(year, month, table);
-    currentDayOfMonth(table);
-
-    //For showing all the events for the current month
-    for (let index = 0; index < eventsCollection.length; index++) {
-        var event = eventsCollection[index].split("|");
-        addEventToADay(event[0], event[1], event[2], event[3], table);
-    }
-}
+    return element;
+};
 
 //Function for displaying the days of week (Mon-Sun) in the table using the global array
 var showDaysOfWeek = function(table){
@@ -93,13 +148,13 @@ var addDefaultEvent = function(){
 };
 
 //Main function for printing all the days for the current year and month and the table parameter is for where to attach these elements
-var printDaysInMonth = function(year, month, table){
+var printDaysInMonth = function(year, month, table, numberOfWeeks){
     var counter = 1;
     var firstDayName = getNameOfFirstDayOfMonth(year, month);
     var numberOfFirstDay = daysOfWeek.indexOf(firstDayName);
     var lastDay = getNumberOfLastDayOfMonth(year, month);
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < numberOfWeeks; i++) {
         var tableRow = JSDomL.appendElement("tr", table);
         if (i == 0) {
             for (let j = 0; j < numberOfFirstDay; j++) {

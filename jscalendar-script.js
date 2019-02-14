@@ -12,7 +12,8 @@ var currentYear = dateObject.getFullYear();
 var isInputType = false;
 
 //Constant variable for holding the element to which the callendar is atteched
-const elementToAppendToID = addElementToAppendTo("input-test");
+//Change the parameter to "input-test" and uncomment the input in the HTML to show the datepicker functionality
+const elementToAppendToID = addElementToAppendTo("js-calendar");
 
 //Function for changing the appended element
 //It is declared this way so it can be invoked before its declaration on the previous line  
@@ -311,6 +312,7 @@ var addFunctionality = function(year, month, element){
     }
 };
 
+//Function for creating a datepicker
 var createDatePicker = function (year, month) {
     //It will append to the body
     var elementToAppendTo = JSDomL.getElementUsingCssSelectors("body");
@@ -401,13 +403,17 @@ addEvent(10, 6, 2019, '{"eventName":"Concert", "eventInfo":"Concert under the ni
 addEvent(09, 7, 2019, '{"eventName":"Movie night", "eventInfo":"Movie night event!"}');
 addEvent(08, 2, 2019, '{"eventName":"Cinema", "eventInfo":"Cinema event! Great movies!"}');
 
-//On load of the page call the function createCalendar with the current year and month
-//For test to show good parametrization change the current year and month to whatever you like: everything will
-//change based on the given information
-//Ex: window.onload = createCalendar(1967, 5);
-if (isInputType) {
-    window.onload = addEventListenersToTheInput();
-}
-else{
-    window.onload = createCalendar(currentYear, currentMonth);
-}
+var loadFirstCalendar = function(){
+    if (isInputType) {
+        window.onload = addEventListenersToTheInput();
+    }
+    else {
+        //On load of the page call the function createCalendar with the current year and month
+        //For test to show good parametrization change the current year and month to whatever you like: everything will
+        //change based on the given information
+        //Ex: window.onload = createCalendar(1967, 5);
+        window.onload = createCalendar(currentYear, currentMonth);
+    }
+};
+
+loadFirstCalendar();

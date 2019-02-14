@@ -403,6 +403,7 @@ addEvent(10, 6, 2019, '{"eventName":"Concert", "eventInfo":"Concert under the ni
 addEvent(09, 7, 2019, '{"eventName":"Movie night", "eventInfo":"Movie night event!"}');
 addEvent(08, 2, 2019, '{"eventName":"Cinema", "eventInfo":"Cinema event! Great movies!"}');
 
+//Function for what to start based on the element the calendar is attached to
 var loadFirstCalendar = function(){
     if (isInputType) {
         window.onload = addEventListenersToTheInput();

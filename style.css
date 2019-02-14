@@ -20,6 +20,21 @@ table{
     box-shadow: 10px 5px 30px rgba(191, 191, 191, 0.4);
 }
 
+.btn-month-view, .btn-first-week-view, .btn-second-week-view, .btn-third-week-view{
+    background-color: #ADD8E6;
+    border: none;
+    color: rgb(64, 64, 64);;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-month-view:hover, .btn-first-week-view:hover, .btn-second-week-view:hover, .btn-third-week-view:hover {
+    background-color:rgb(42, 113, 137);
+}
+
 .datepicker{
     width: 40%;
 }

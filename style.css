@@ -2,7 +2,8 @@
 
 .table-week-rows{
     padding: 2%;
-    background-color: #ADD8E6;
+    background-color: #ff554d;
+    color: white;
 }
 
 table{
@@ -15,6 +16,8 @@ table{
     width: 80%;
     display: inline-block;
     font-family: 'Open Sans', sans-serif;
+    background-color: rgba(242, 242, 242, 0.5);
+    box-shadow: 10px 5px 30px rgba(191, 191, 191, 0.4);
 }
 
 body{
@@ -36,6 +39,7 @@ body{
     padding: 1%;
     background-color: #ADD8E6;
     text-align: center;
+    color: rgb(64, 64, 64);
 }
 
 .show-date{
@@ -57,9 +61,9 @@ body{
     padding: 10px;
 }
 
-.left-btn:hover, .right-btn:hover, .show-date:hover{
+.left-btn:hover, .right-btn:hover, .show-date:hover, .show-year:hover{
     cursor: pointer;
-    color: #398AD7;
+    color: rgb(42, 113, 137);
 }
 
 .right-btn{
@@ -81,3 +85,14 @@ body{
 .current-day{
     color: red;
 }
+
+@media only screen and (max-width: 1300px) {
+    .show-date{
+        margin-bottom: 20px;
+        padding: 10%;
+    }
+
+    .show-year{
+        margin-bottom: 20px;
+    }
+  }

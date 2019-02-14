@@ -211,6 +211,14 @@ var addEventToADay = function(day, month, year, JsonData, table){
 
 //Simplified function for the user to call by parsing the date and the data
 var addEvent = function(day, month, year, JsonData){
+    var date = new Date(year, month, day).getTime();
+    var today = new Date().getTime();
+
+    if (date < today) {
+        alert("Sorry not valid date for a furure event!");
+        return;
+    }
+
     eventsCollection.push(`${day}|${month-1}|${year}|${JsonData}`);
 };
 

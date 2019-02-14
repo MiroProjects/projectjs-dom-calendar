@@ -241,8 +241,17 @@ var addEvent = function(day, month, year, JsonData){
 //The JsonData is in format:
 //'{"eventName":"some name", "eventInfo":"some information"}'
 //The properties are eventName and eventInfo
+//Some events:
 addEvent(14, 5, 2020, '{"eventName":"Birthday", "eventInfo":"Gosho\'s 30 year birthday party!"}');
-addEvent(15, 2, 2019, '{"eventName":"Wedding", "eventInfo":"Pesho\'s wedding party!"}');
+addEvent(15, 2, 2024, '{"eventName":"Wedding", "eventInfo":"Pesho\'s wedding party!"}');
+addEvent(17, 2, 2019, '{"eventName":"Party", "eventInfo":"Best party!"}');
+addEvent(01, 10, 2019, '{"eventName":"Sport Event", "eventInfo":"Sport event in the spoprt base!"}');
+addEvent(23, 11, 2019, '{"eventName":"Concert", "eventInfo":"Best concert in the world"}');
+addEvent(18, 12, 2019, '{"eventName":"Party", "eventInfo":"Cool beach party!"}');
+addEvent(19, 6, 2019, '{"eventName":"Wedding", "eventInfo":"Pesho and Mariya\'s wedding!"}');
+addEvent(10, 6, 2019, '{"eventName":"Concert", "eventInfo":"Concert under the night sky!"}');
+addEvent(09, 7, 2019, '{"eventName":"Movie night", "eventInfo":"Movie night event!"}');
+addEvent(08, 2, 2019, '{"eventName":"Cinema", "eventInfo":"Cinema event! Great movies!"}');
 
 //On load of the page call the function createCalendar with the current year and month
 //For test to show good parametrization change the current year and month to whatever you like: everything will

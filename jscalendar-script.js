@@ -96,6 +96,7 @@ var showWeekView = function (numberOfWeeks) {
     var table = JSDomL.appendElement("TABLE", element);
     showDaysOfWeek(table);
     printDaysInMonth(currentYear, currentMonth, table, numberOfWeeks);
+    currentDayOfMonth(table);
     showAllEvents(table);
     createButtons(element);
 };
@@ -337,6 +338,7 @@ var createDatePicker = function (year, month) {
     var table = JSDomL.appendElement("TABLE", element);
     showDaysOfWeek(table);
     printDaysInMonth(year, month, table, 6);
+    currentDayOfMonth(table);
 
     var btnForClosing = JSDomL.appendElement("INPUT", element);
     JSDomL.addAttribute(btnForClosing, "type", "button")

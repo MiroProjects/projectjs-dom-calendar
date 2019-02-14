@@ -341,6 +341,7 @@ var createDatePicker = function (year, month) {
     var btnForClosing = JSDomL.appendElement("INPUT", element);
     JSDomL.addAttribute(btnForClosing, "type", "button")
           .addAttribute(btnForClosing, "value", "X")
+          .addAttribute(btnForClosing, "title", "Close")
           .addAttribute(btnForClosing, "class", "close")
           .addAction(btnForClosing, "click", function(){
             var previousDatepicker = JSDomL.getElementUsingId("main-div");
@@ -371,6 +372,7 @@ var addEventToADay = function(day, month, year, JsonData, table){
     }
 };
 
+//Function that adds event listener to the input filed if the calendar is attached to it
 var addEventListenersToTheInput = function () {
     JSDomL.addAction(elementToAppendToID, "focus", function () { createDatePicker(currentYear, currentMonth) });
 };

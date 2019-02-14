@@ -341,6 +341,7 @@ var createDatePicker = function (year, month) {
     var btnForClosing = JSDomL.appendElement("INPUT", element);
     JSDomL.addAttribute(btnForClosing, "type", "button")
           .addAttribute(btnForClosing, "value", "X")
+          .addAttribute(btnForClosing, "class", "close")
           .addAction(btnForClosing, "click", function(){
             var previousDatepicker = JSDomL.getElementUsingId("main-div");
             if (previousDatepicker != null) {

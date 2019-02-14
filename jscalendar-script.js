@@ -11,6 +11,7 @@ var currentYear = dateObject.getFullYear();
 //Constant variable for holding the element to which the callendar is atteched
 const elementToAppendToID = "js-calendar";
 
+//Global array for holding all created events
 var eventsCollection = [];
 
 //Function for getting the name of the month using the global array
@@ -85,6 +86,11 @@ var currentDayOfMonth = function(table){
     }
 };
 
+//Function for default alert for days without events
+var addDefaultEvent = function(){
+    alert("Not events for this day");
+};
+
 //Main function for printing all the days for the current year and month and the table parameter is for where to attach these elements
 var printDaysInMonth = function(year, month, table){
     var counter = 1;
@@ -103,7 +109,8 @@ var printDaysInMonth = function(year, month, table){
             for (let j = numberOfFirstDay; j < 7; j++) {
                 var tableColumn = JSDomL.appendElement("td", tableRow);
                 JSDomL.changeHTMLContent(tableColumn, counter++)
-                      .addAttribute(tableColumn, "class", "table-days-rows");
+                      .addAttribute(tableColumn, "class", "table-days-rows")
+                      .addAction(tableColumn, "click", addDefaultEvent);
             }
             continue;
         }
@@ -116,7 +123,8 @@ var printDaysInMonth = function(year, month, table){
             }
             var tableColumn = JSDomL.appendElement("td", tableRow);
             JSDomL.changeHTMLContent(tableColumn, counter++)
-                  .addAttribute(tableColumn, "class", "table-days-rows");
+                  .addAttribute(tableColumn, "class", "table-days-rows")
+                  .addAction(tableColumn, "click", addDefaultEvent);;
         }
     }
 };
@@ -197,11 +205,12 @@ var addEventToADay = function(day, month, year, JsonData, table){
         for (let i = 1, row; row = table.rows[i]; i++) {
             for (let j = 0, col; col = row.cells[j]; j++) {
                 if (JSDomL.getHTML(col) == day) {
+                    //Removing the default message and adding the new one for the event
+                    JSDomL.removeAction(col, "click",addDefaultEvent);
                     JSDomL.addAction(col, "click", function(){
                         alert(`Event name: ${obj.eventName}, Event info: ${obj.eventInfo}, Date: ${day}/${month}/${year}`);
                     })
-                          .changeStyle(col, "color", "#7FDBFF")
-                          .changeStyle(col, "cursor", "pointer");
+                          .changeStyle(col, "color", "#7FDBFF");
                     break;
                 }
             }        

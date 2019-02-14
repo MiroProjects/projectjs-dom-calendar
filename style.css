@@ -24,6 +24,7 @@ body{
 .table-days-rows{
     padding: 1%;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .left-btn, .right-btn, .show-date, label, option{

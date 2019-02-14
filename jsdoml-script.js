@@ -175,6 +175,16 @@ JSDomL = {
 
         element.addEventListener(event, callback);
         return this;
+    },
+
+    removeAction: function(element, event, callback){
+        element = checkSelector(element);
+        if (checkForNullElement(element)) {
+            return;
+        }
+
+        element.removeEventListener(event, callback);
+        return this;
     }
 };
 

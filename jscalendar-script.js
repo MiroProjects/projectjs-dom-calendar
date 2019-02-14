@@ -4,6 +4,7 @@ var daysOfWeek = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 var dateObject = new Date();
 var currentMonth = dateObject.getMonth();
 var currentYear = dateObject.getFullYear();
+const elementToAppendToID = "js-calendar";
 
 var getNameOfFirstDayOfMonth = function(year, month){
     var date = new Date(year, month, 1).toDateString();
@@ -17,13 +18,15 @@ var getNumberOfLastDayOfMonth = function(year, month){
     return lastDayOfMonth;
 };
 
-
-var createCalendar = function(year, month, elementToAppendTheCalendar){
-    var child = JSDomL.getChilds(elementToAppendTheCalendar)[0];
+var createCalendar = function(year, month){
+    var child = JSDomL.getChilds(elementToAppendToID)[0];
     JSDomL.deleteElement(child);
-    
-    var element = JSDomL.appendElement("DIV", elementToAppendTheCalendar);
-    addFunctionality(month, year, element);
+
+    currentYear = year;
+    currentMonth = month;
+
+    var element = JSDomL.appendElement("DIV", elementToAppendToID);
+    addFunctionality(year, month, element);
     JSDomL.addAttribute(element, "id", "main-div")
           .addAttribute(element, "class", "container-div");
 
@@ -83,7 +86,7 @@ var previousMonth = function(){
         currentMonth--;
     }
 
-    createCalendar(currentYear, currentMonth, "js-calendar");
+    createCalendar(currentYear, currentMonth);
 };
 
 var nextMonth = function(){
@@ -94,10 +97,10 @@ var nextMonth = function(){
     else{
         currentMonth++;
     }
-    createCalendar(currentYear, currentMonth, "js-calendar");
+    createCalendar(currentYear, currentMonth);
 };
 
-var addFunctionality = function(month, year, element){
+var addFunctionality = function(year, month, element){
     var div = JSDomL.appendElement("DIV", element);
     JSDomL.addAttribute(div, "class", "label");
 
@@ -117,16 +120,16 @@ var addFunctionality = function(month, year, element){
     JSDomL.addAttribute(showYear, "class", "show-year")
           .addAction(showYear, "change", function(){
               currentYear = showYear.value;
-              createCalendar(currentYear, currentMonth, "js-calendar");
+              createCalendar(currentYear, 0);
           });
 
     for (let index = 1900; index < 2101; index++) {
         var option = JSDomL.appendElement("OPTION", showYear);
-        if (index == currentYear) {
+        if (index == year) {
             JSDomL.addAttribute(option, "selected", "selected");
         }
         JSDomL.changeHTMLContent(option, index);
     }
 };
 
-window.onload = createCalendar(currentYear, currentMonth, "js-calendar");
+window.onload = createCalendar(currentYear, currentMonth);

@@ -15,7 +15,7 @@ var isInputType = false;
 //Change the parameter to "input-test" and uncomment the input in the HTML to show the datepicker functionality
 const elementToAppendToID = addElementToAppendTo("js-calendar");
 
-//Function for changing the appended element
+//Function for changing the appended element and checking if the element to which the calendar is appended is an input
 //It is declared this way so it can be invoked before its declaration on the previous line  
 function addElementToAppendTo(id){
     var element = JSDomL.getElementUsingId(id);
@@ -57,7 +57,7 @@ var createCalendar = function(year, month){
     createButtons(element);
 }
 
-//Function for creating the buttons
+//Function for creating the buttons for the calendar
 var createButtons = function(element){
     //For creating the buttons
     var btnForMonthView = JSDomL.appendElement("INPUT", element);
@@ -88,7 +88,7 @@ var showMonthView = function(){
     createCalendar(currentYear, currentMonth);
 };
 
-//Function for showing the week view
+//Function for showing the week views
 var showWeekView = function (numberOfWeeks) {
     var element = mainCalendarFunctions(currentYear, currentMonth);
 
@@ -138,7 +138,7 @@ var showDaysOfWeek = function(table){
     }
 };
 
-//Function for finding the current day of this year and month and adding to the element class for chainging its style
+//Function for finding the current day of this year and month and adding to this day a class for chainging its style
 //in order to be different from the others
 var currentDayOfMonth = function(table){
     var day = dateObject.getDate();
@@ -207,7 +207,7 @@ var creatingCellsForEachDay = function(tableRow, counter, table, year, month){
     if (!isInputType) {
         JSDomL.addAction(tableColumn, "click", addDefaultEvent);
     }
-    //If it is a datepicker add get value for the input fiel
+    //If it is a datepicker get the value for the input field
     else{
         JSDomL.addAction(tableColumn, "click", function(){
             var value = table.rows[this.parentElement.rowIndex].cells[this.cellIndex].innerHTML;

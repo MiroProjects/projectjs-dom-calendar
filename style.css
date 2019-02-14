@@ -49,7 +49,6 @@ body{
     border: none;
     height: 30px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .left-btn, .right-btn{
@@ -57,7 +56,7 @@ body{
     padding: 10px;
 }
 
-.left-btn:hover, .right-btn:hover{
+.left-btn:hover, .right-btn:hover, .show-date:hover{
     cursor: pointer;
     color: #398AD7;
 }

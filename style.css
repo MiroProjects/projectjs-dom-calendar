@@ -57,7 +57,7 @@ body{
 }
 
 .left-btn, .right-btn{
-    font-size: 45px;
+    font-size: 35px;
     padding: 10px;
 }
 
@@ -71,7 +71,7 @@ body{
 }
 
 .right-btn::before{
-    content: "\203A";
+    content: "\21E8";
 }
 
 .left-btn{
@@ -79,7 +79,7 @@ body{
 }
 
 .left-btn::before{
-    content: "\2039";
+    content: "\21E6";
 }
 
 .current-day{

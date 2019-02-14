@@ -78,7 +78,8 @@ var currentDayOfMonth = function(table){
         for (let i = 1, row; row = table.rows[i]; i++) {
             for (let j = 0, col; col = row.cells[j]; j++) {
                 if (JSDomL.getHTML(col) == day) {
-                    JSDomL.addAttribute(col, "class", "table-days-rows current-day");
+                    JSDomL.addAttribute(col, "class", "table-days-rows current-day")
+                          .addAttribute(col, "title", "Today");
                     break;
                 }
             }        
@@ -170,20 +171,24 @@ var addFunctionality = function(year, month, element){
 
     var divLeftButton = JSDomL.appendElement("DIV", div);
     JSDomL.addAttribute(divLeftButton, "class", "left-btn")
+          .addAttribute(divLeftButton, "title", "Previous month")
           .addAction(divLeftButton, "click", previousMonth);
 
     var divRightButton = JSDomL.appendElement("DIV", div);
     JSDomL.addAttribute(divRightButton, "class", "right-btn")
+          .addAttribute(divRightButton, "title", "Next month")
           .addAction(divRightButton, "click", nextMonth);
 
     //When clicked it calls the returnToTodaysDate function
     var showDate = JSDomL.appendElement("DIV", div);
     JSDomL.addAttribute(showDate, "class", "show-date")
+          .addAttribute(showDate, "title", "Click me to see today's date")
           .changeHTMLContent(showDate, `${monthNames[month]} ${year}`)
           .addAction(showDate, "click", returnToTodaysDate);
 
     var showYear = JSDomL.appendElement("SELECT", div);
     JSDomL.addAttribute(showYear, "class", "show-year")
+          .addAttribute(showYear, "title", "Choose a year")
           .addAction(showYear, "change", function(){
               currentYear = showYear.value;
               createCalendar(currentYear, 0);
@@ -210,7 +215,8 @@ var addEventToADay = function(day, month, year, JsonData, table){
                     JSDomL.addAction(col, "click", function(){
                         alert(`Event name: ${obj.eventName}, Event info: ${obj.eventInfo}, Date: ${day}/${month}/${year}`);
                     })
-                          .changeStyle(col, "color", "#7FDBFF");
+                          .changeStyle(col, "boxShadow", "10px 5px 10px rgba(204, 204, 204, 0.5)")
+                          .addAttribute(col, "title", `Event: ${obj.eventName}. Click here to learn more!`);
                     break;
                 }
             }        
@@ -231,14 +237,15 @@ var addEvent = function(day, month, year, JsonData){
     eventsCollection.push(`${day}|${month-1}|${year}|${JsonData}`);
 };
 
-//On load of the page call the function createCalendar with the current year and month
-//For test to show good parametrization change the current year and month to whatever you like: everything will
-//change based on the given information
-//Ex: window.onload = createCalendar(1967, 5);
-window.onload = createCalendar(currentYear, currentMonth);
-
 //The month is from: 1-12
 //The JsonData is in format:
 //'{"eventName":"some name", "eventInfo":"some information"}'
 //The properties are eventName and eventInfo
 addEvent(14, 5, 2020, '{"eventName":"Birthday", "eventInfo":"Gosho\'s 30 year birthday party!"}');
+addEvent(15, 2, 2019, '{"eventName":"Wedding", "eventInfo":"Pesho\'s wedding party!"}');
+
+//On load of the page call the function createCalendar with the current year and month
+//For test to show good parametrization change the current year and month to whatever you like: everything will
+//change based on the given information
+//Ex: window.onload = createCalendar(1967, 5);
+window.onload = createCalendar(currentYear, currentMonth);

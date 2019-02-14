@@ -118,6 +118,13 @@ var nextMonth = function(){
     createCalendar(currentYear, currentMonth);
 };
 
+//Function for returning to todays date
+var returnToTodaysDate = function(){
+    currentMonth = dateObject.getMonth();
+    currentYear = dateObject.getFullYear();
+    createCalendar(currentYear, currentMonth);
+};
+
 //Function for creating the left and right arrow for the months
 //For creating the text for the date
 //For creating the select filed with all the options
@@ -133,9 +140,11 @@ var addFunctionality = function(year, month, element){
     JSDomL.addAttribute(divRightButton, "class", "right-btn")
           .addAction(divRightButton, "click", nextMonth);
 
+    //When clicked it calls the returnToTodaysDate function
     var showDate = JSDomL.appendElement("DIV", div);
     JSDomL.addAttribute(showDate, "class", "show-date")
-          .changeHTMLContent(showDate, `${monthNames[month]} ${year}`);
+          .changeHTMLContent(showDate, `${monthNames[month]} ${year}`)
+          .addAction(showDate, "click", returnToTodaysDate);
 
     var showYear = JSDomL.appendElement("SELECT", div);
     JSDomL.addAttribute(showYear, "class", "show-year")
@@ -144,9 +153,9 @@ var addFunctionality = function(year, month, element){
               createCalendar(currentYear, 0);
           });
 
-    for (let index = 1900; index < 2101; index++) {
+    for (let index = 1900; index < 2120; index++) {
         var option = JSDomL.appendElement("OPTION", showYear);
-        if (index == year) {
+        if (index == currentYear) {
             JSDomL.addAttribute(option, "selected", "selected");
         }
         JSDomL.changeHTMLContent(option, index);
@@ -156,4 +165,5 @@ var addFunctionality = function(year, month, element){
 //On load of the page call the function createCalendar with the current year and month
 //For test to show good parametrization change the current year and month to whatever you like: everything will
 //change based on the given information
+//Ex: window.onload = createCalendar(1967, 5);
 window.onload = createCalendar(currentYear, currentMonth);

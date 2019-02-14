@@ -253,7 +253,7 @@ var nextMonth = function(){
     createCalendar(currentYear, currentMonth);
 };
 
-//Function for returning to todays date
+//Function for returning to today's date
 var returnToTodaysDate = function(){
     currentMonth = dateObject.getMonth();
     currentYear = dateObject.getFullYear();

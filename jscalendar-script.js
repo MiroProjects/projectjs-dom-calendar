@@ -11,6 +11,8 @@ var currentYear = dateObject.getFullYear();
 //Constant variable for holding the element to which the callendar is atteched
 const elementToAppendToID = "js-calendar";
 
+var eventsCollection = [];
+
 //Function for getting the name of the month using the global array
 var getNameOfFirstDayOfMonth = function(year, month){
     var date = new Date(year, month, 1).toDateString();
@@ -46,6 +48,12 @@ var createCalendar = function(year, month){
     showDaysOfWeek(table);
     printDaysInMonth(year, month, table);
     currentDayOfMonth(table);
+
+    //For showing all the events for the current month
+    for (let index = 0; index < eventsCollection.length; index++) {
+        var event = eventsCollection[index].split("|");
+        addEventToADay(event[0], event[1], event[2], event[3], table);
+    }
 }
 
 //Function for displaying the days of week (Mon-Sun) in the table using the global array
@@ -70,6 +78,7 @@ var currentDayOfMonth = function(table){
             for (let j = 0, col; col = row.cells[j]; j++) {
                 if (JSDomL.getHTML(col) == day) {
                     JSDomL.addAttribute(col, "class", "table-days-rows current-day");
+                    break;
                 }
             }        
         }   
@@ -181,8 +190,38 @@ var addFunctionality = function(year, month, element){
     }
 };
 
+//Function for adding an event to the calendar by parsing the table and JSON data
+var addEventToADay = function(day, month, year, JsonData, table){
+    if (currentMonth == month && currentYear == year) {
+        var obj = JSON.parse(JsonData);
+        for (let i = 1, row; row = table.rows[i]; i++) {
+            for (let j = 0, col; col = row.cells[j]; j++) {
+                if (JSDomL.getHTML(col) == day) {
+                    JSDomL.addAction(col, "click", function(){
+                        alert(`Event name: ${obj.eventName}, Event info: ${obj.eventInfo}, Date: ${day}/${month}/${year}`);
+                    })
+                          .changeStyle(col, "color", "#7FDBFF")
+                          .changeStyle(col, "cursor", "pointer");
+                    break;
+                }
+            }        
+        }   
+    }
+};
+
+//Simplified function for the user to call by parsing the date and the data
+var addEvent = function(day, month, year, JsonData){
+    eventsCollection.push(`${day}|${month-1}|${year}|${JsonData}`);
+};
+
 //On load of the page call the function createCalendar with the current year and month
 //For test to show good parametrization change the current year and month to whatever you like: everything will
 //change based on the given information
 //Ex: window.onload = createCalendar(1967, 5);
 window.onload = createCalendar(currentYear, currentMonth);
+
+//The month is from: 1-12
+//The JsonData is in format:
+//'{"eventName":"some name", "eventInfo":"some information"}'
+//The properties are eventName and eventInfo
+addEvent(14, 5, 2020, '{"eventName":"Birthday", "eventInfo":"Gosho\'s 30 year birthday party!"}');

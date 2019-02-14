@@ -45,6 +45,7 @@ var createCalendar = function(year, month){
     var table = JSDomL.appendElement("TABLE", element);
     showDaysOfWeek(table);
     printDaysInMonth(year, month, table);
+    currentDayOfMonth(table);
 }
 
 //Function for displaying the days of week (Mon-Sun) in the table using the global array
@@ -54,6 +55,24 @@ var showDaysOfWeek = function(table){
         var tableColumn = JSDomL.appendElement("td", tableRow);
         JSDomL.changeHTMLContent(tableColumn, daysOfWeek[index])
               .addAttribute(tableColumn, "class", "table-week-rows");
+    }
+};
+
+//Function for finding the current day of this year and month and adding to the element class for chainging its style
+//in order to be different from the others
+var currentDayOfMonth = function(table){
+    var day = dateObject.getDate();
+    var month = dateObject.getMonth();
+    var year = dateObject.getFullYear();
+
+    if (currentMonth == month && currentYear == year) {
+        for (let i = 1, row; row = table.rows[i]; i++) {
+            for (let j = 0, col; col = row.cells[j]; j++) {
+                if (JSDomL.getHTML(col) == day) {
+                    JSDomL.addAttribute(col, "class", "table-days-rows current-day");
+                }
+            }        
+        }   
     }
 };
 

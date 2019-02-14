@@ -76,3 +76,7 @@ body{
 .left-btn::before{
     content: "\2039";
 }
+
+.current-day{
+    color: red;
+}

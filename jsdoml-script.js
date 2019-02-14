@@ -156,6 +156,16 @@ JSDomL = {
         return element.childNodes;
     },
 
+    //Function for getting the inner HTML of an HTML element
+    getHTML: function(element){
+        element = checkSelector(element);
+        if (checkForNullElement(element)) {
+            return;
+        }
+
+        return element.innerHTML;
+    },
+
     //Function for adding an event listener to an HTML element
     addAction: function(element, event, callback){
         element = checkSelector(element);

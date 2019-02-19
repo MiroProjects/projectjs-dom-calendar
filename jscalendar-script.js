@@ -229,6 +229,7 @@ var previousMonth = function(){
     }
 
     if (isInputType) {
+        deletePreviousDatepicker();
         createDatePicker(currentYear, currentMonth);
         return;
     }
@@ -247,6 +248,7 @@ var nextMonth = function(){
     }
 
     if (isInputType) {
+        deletePreviousDatepicker();
         createDatePicker(currentYear, currentMonth);
         return;
     }
@@ -260,6 +262,7 @@ var returnToTodaysDate = function(){
     currentYear = dateObject.getFullYear();
 
     if (isInputType) {
+        deletePreviousDatepicker();
         createDatePicker(currentYear, currentMonth);
         return;
     }
@@ -297,7 +300,8 @@ var addFunctionality = function(year, month, element){
           .addAction(showYear, "change", function(){
               currentYear = showYear.value;
               if (isInputType) {
-                  createDatePicker(currentYear, 0);
+                deletePreviousDatepicker();
+                createDatePicker(currentYear, 0);
               }
               else{
                 createCalendar(currentYear, 0);
@@ -317,12 +321,6 @@ var addFunctionality = function(year, month, element){
 var createDatePicker = function (year, month) {
     //It will append to the body
     var elementToAppendTo = JSDomL.getElementUsingCssSelectors("body");
-
-    //Delete previos datepicker from body
-    var previousDatepicker = JSDomL.getElementUsingId("main-div");
-    if (previousDatepicker != null) {
-        JSDomL.deleteElement(previousDatepicker);
-    }
     
     //Set the current year and month to be the parameters values
     currentYear = year;
@@ -345,12 +343,15 @@ var createDatePicker = function (year, month) {
           .addAttribute(btnForClosing, "value", "X")
           .addAttribute(btnForClosing, "title", "Close")
           .addAttribute(btnForClosing, "class", "close")
-          .addAction(btnForClosing, "click", function(){
-            var previousDatepicker = JSDomL.getElementUsingId("main-div");
-            if (previousDatepicker != null) {
-                JSDomL.deleteElement(previousDatepicker);
-            }
-          });
+          .addAction(btnForClosing, "click", deletePreviousDatepicker);
+};
+
+//Function for deleting the previous datepicker
+var deletePreviousDatepicker = function(){
+    var previousDatepicker = JSDomL.getElementUsingId("main-div");
+    if (previousDatepicker != null) {
+        JSDomL.deleteElement(previousDatepicker);
+    }
 };
 
 //Function for adding an event to the calendar by parsing the table and JSON data
